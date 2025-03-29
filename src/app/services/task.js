@@ -8,7 +8,13 @@ export async function createTask(formData) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
+    console.log({
+      tags: JSON.parse(formData.get("tags") || "[]"),
+      activity_description: formData?.get("activity_description"),
+      user_id: user?.id,
+      hours: formData?.get("hours"),
+      title: formData?.get("title"),
+    });
     const { error } = await supabase.from("tasks").insert({
       tags: JSON.parse(formData.get("tags") || "[]"),
       activity_description: formData?.get("activity_description"),
